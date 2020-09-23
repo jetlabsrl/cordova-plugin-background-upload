@@ -50,6 +50,10 @@ FileTransferManager.prototype.startUpload = function (payload) {
   }
 
   var self = this
+  if (!payload.requestMethod) {
+    payload.requestMethod = 'POST'
+  }
+
   window.resolveLocalFileSystemURL(payload.filePath, function (entry) {
     payload.filePath = entry.toURL().replace('file://', '')
     exec(self.callback, null, 'FileTransferBackground', 'startUpload', [payload])
