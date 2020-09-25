@@ -24,7 +24,7 @@ static NSString * kUploadUUIDStrPropertyKey = @"com.spoonconsulting.plugin-backg
     configuration.HTTPMaximumConnectionsPerHost = FileUploader.parallelUploadsLimit;
     configuration.sessionSendsLaunchEvents = NO;
     self.manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    __weak FileUploader *weakSelf = [FileUploader sharedInstance];
+    __weak FileUploader *weakSelf = self;
     [self.manager setTaskDidCompleteBlock:^(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSError * _Nullable error) {
         NSString* uploadId = [NSURLProtocol propertyForKey:kUploadUUIDStrPropertyKey inRequest:task.originalRequest];
         NSLog(@"[BackgroundUpload] Task %@ completed with error %@", uploadId, error);
@@ -32,14 +32,14 @@ static NSString * kUploadUUIDStrPropertyKey = @"com.spoonconsulting.plugin-backg
             NSData* serverData = weakSelf.responsesData[@(task.taskIdentifier)];
             NSString* serverResponse = serverData ? [[NSString alloc] initWithData:serverData encoding:NSUTF8StringEncoding] : @"";
             [weakSelf.responsesData removeObjectForKey:@(task.taskIdentifier)];
-            [weakSelf saveAndSendEvent:@{
+            [[FileUploader sharedInstance] saveAndSendEvent:@{
                 @"id" : uploadId,
                 @"state" : @"UPLOADED",
                 @"statusCode" : @(((NSHTTPURLResponse *)task.response).statusCode),
                 @"serverResponse" : serverResponse
             }];
         } else {
-            [weakSelf saveAndSendEvent:@{
+            [[FileUploader sharedInstance] saveAndSendEvent:@{
                 @"id" : uploadId,
                 @"state" : @"FAILED",
                 @"error" : error.localizedDescription,
