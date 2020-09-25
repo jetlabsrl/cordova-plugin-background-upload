@@ -24,7 +24,7 @@ static NSString * kUploadUUIDStrPropertyKey = @"com.spoonconsulting.plugin-backg
     configuration.HTTPMaximumConnectionsPerHost = FileUploader.parallelUploadsLimit;
     configuration.sessionSendsLaunchEvents = NO;
     self.manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
-    __weak FileUploader *weakSelf = self;
+    __weak FileUploader *weakSelf = [FileUploader sharedInstance];
     [self.manager setTaskDidCompleteBlock:^(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSError * _Nullable error) {
         NSString* uploadId = [NSURLProtocol propertyForKey:kUploadUUIDStrPropertyKey inRequest:task.originalRequest];
         NSLog(@"[BackgroundUpload] Task %@ completed with error %@", uploadId, error);
