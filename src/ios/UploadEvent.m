@@ -60,16 +60,21 @@ static NSPersistentStoreCoordinator * persistentStoreCoordinator;
 }
 
 +(void)setupStorage{
-    NSString* path = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
-    NSURL *storeURL = [NSURL fileURLWithPath:[path stringByAppendingPathComponent:@"Background-upload-plugin.db"]];
-    NSError *error = nil;
-    persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self tableRepresentation]];
-    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
-        NSLog(@"error setting up core data: %@", error);
-    managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
-    [managedObjectContext setPersistentStoreCoordinator:persistentStoreCoordinator];
+    @synchronized(self) {
+        if (!persistentStoreCoordinator){
+            NSString* path = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES)[0];
+            NSURL *storeURL = [NSURL fileURLWithPath:[[path stringByAppendingPathComponent:@"NoCloud"] stringByAppendingPathComponent:@"Background-upload-plugin.db"]];
+            NSError *error = nil;
+            persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self tableRepresentation]];
+            if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
+                NSLog(@"error setting up core data: %@, %@", error, [error localizedDescription]);
+            managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+            managedObjectContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+            [managedObjectContext setPersistentStoreCoordinator:persistentStoreCoordinator];
+        }
+    }
 }
+
 
 +(NSManagedObjectModel*)tableRepresentation{
     NSManagedObjectModel *model = [[NSManagedObjectModel alloc] init];
