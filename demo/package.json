@@ -33,7 +33,6 @@
     "@spoonconsulting/cordova-plugin-background-upload": "git+https://github.com/MaximBelov/cordova-plugin-background-upload.git#master",
     "cordova-android": "8.1.0",
     "cordova-ios": "5.1.1",
-    "cordova-plugin-androidx": "^1.0.2",
     "cordova-plugin-androidx-adapter": "^1.1.0",
     "cordova-plugin-background-upload": "git+https://github.com/MaximBelov/cordova-plugin-background-upload.git#master",
     "cordova-plugin-camera": "^4.1.0",
