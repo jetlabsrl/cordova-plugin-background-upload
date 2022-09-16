@@ -1,9 +1,9 @@
 {
-  "name": "@spoonconsulting/cordova-plugin-background-upload",
+  "name": "cordova-plugin-background-upload",
   "version": "4.0.6",
   "description": "Cordova plugin for uploading file in the background",
   "cordova": {
-    "id": "@spoonconsulting/cordova-plugin-background-upload",
+    "id": "cordova-plugin-background-upload",
     "platforms": [
       "android",
       "ios"
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/spoonconsulting/cordova-plugin-background-upload"
+    "url": "https://github.com/MaximBelov/cordova-plugin-background-upload"
   },
   "keywords": [
     "cordova",

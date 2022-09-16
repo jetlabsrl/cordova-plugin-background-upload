@@ -32,14 +32,14 @@ static NSString * kUploadUUIDStrPropertyKey = @"com.spoonconsulting.plugin-backg
             NSData* serverData = weakSelf.responsesData[@(task.taskIdentifier)];
             NSString* serverResponse = serverData ? [[NSString alloc] initWithData:serverData encoding:NSUTF8StringEncoding] : @"";
             [weakSelf.responsesData removeObjectForKey:@(task.taskIdentifier)];
-            [weakSelf saveAndSendEvent:@{
+            [[FileUploader sharedInstance] saveAndSendEvent:@{
                 @"id" : uploadId,
                 @"state" : @"UPLOADED",
                 @"statusCode" : @(((NSHTTPURLResponse *)task.response).statusCode),
                 @"serverResponse" : serverResponse
             }];
         } else {
-            [weakSelf saveAndSendEvent:@{
+            [[FileUploader sharedInstance] saveAndSendEvent:@{
                 @"id" : uploadId,
                 @"state" : @"FAILED",
                 @"error" : error.localizedDescription,
