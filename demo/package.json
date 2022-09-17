@@ -9,7 +9,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "cleanUp": "rm -rf {platforms,plugins} & npm i",
+    "build:android": "ionic cordova build android",
+    "build:android:livereload": "ionic cordova run android --verbose --livereload --host=192.168.1.181",
+    "build:ios": "ionic cordova emulate ios"
   },
   "private": true,
   "dependencies": {
