@@ -1,4 +1,5 @@
 var exec = require('cordova/exec')
+var cordova = require('cordova')
 
 var FileTransferManager = function (options, callback) {
   this.options = options
@@ -51,7 +52,12 @@ FileTransferManager.prototype.startUpload = function (payload) {
 
   var self = this
   window.resolveLocalFileSystemURL(payload.filePath, function (entry) {
-    payload.filePath = new URL(entry.toURL()).pathname.replace(/^\/local-filesystem/, '')
+    // if (cordova.platformId === 'android') {
+    //   payload.filePath = entry.nativeURL.replace('file://', '')
+    // } else {
+    //   payload.filePath = new URL(entry.toURL()).pathname.replace(/^\/local-filesystem/, '')
+    // }
+    payload.filePath = entry.nativeURL.replace('file://', '')
     exec(self.callback, null, 'FileTransferBackground', 'startUpload', [payload])
   }, function () {
     self.callback({ id: payload.id, state: 'FAILED', error: 'File not found: ' + payload.filePath })
