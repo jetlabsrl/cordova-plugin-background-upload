@@ -9,7 +9,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "cleanUp": "rm -rf {platforms,plugins} & npm i",
+    "build:android": "ionic cordova build android",
+    "build:android:livereload": "ionic cordova run android --verbose --livereload --host=192.168.1.181",
+    "build:ios": "ionic cordova emulate ios"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +27,7 @@
     "@awesome-cordova-plugins/core": "^5.45.0",
     "@awesome-cordova-plugins/file": "^5.45.0",
     "@awesome-cordova-plugins/image-picker": "^5.45.0",
+    "@awesome-cordova-plugins/ionic-webview": "^5.45.0",
     "@ionic/angular": "^6.2.5",
     "cordova-ios": "6.2.0",
     "rxjs": "~7.5.6",
@@ -41,7 +46,7 @@
     "@angular/language-service": "~14.2.2",
     "@ionic/angular-toolkit": "^7.0.0",
     "@ionic/cordova-builders": "^7.0.0",
-    "@spoonconsulting/cordova-plugin-background-upload": "latest",
+    "@spoonconsulting/cordova-plugin-background-upload": "git+https://github.com/MaximBelov/cordova-plugin-background-upload.git#4.0.6-dev",
     "@spoonconsulting/cordova-plugin-telerik-imagepicker": "^2.0.1",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "5.37.0",
