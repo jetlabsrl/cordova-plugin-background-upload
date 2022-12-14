@@ -41,7 +41,6 @@
     "@angular/language-service": "~14.2.2",
     "@ionic/angular-toolkit": "^7.0.0",
     "@ionic/cordova-builders": "^7.0.0",
-    "@spoonconsulting/cordova-plugin-background-upload": "latest",
     "@spoonconsulting/cordova-plugin-telerik-imagepicker": "^2.0.1",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "5.37.0",
@@ -74,8 +73,7 @@
       "cordova-plugin-file": {
         "ANDROIDX_WEBKIT_VERSION": "1.4.0"
       },
-      "@spoonconsulting/cordova-plugin-telerik-imagepicker": {},
-      "@spoonconsulting/cordova-plugin-background-upload": {}
+      "@spoonconsulting/cordova-plugin-telerik-imagepicker": {}
     },
     "platforms": [
       "android",
